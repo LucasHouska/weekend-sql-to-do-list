@@ -26,6 +26,7 @@ function renderTasks( tasks ) {
     $('#toDoList').empty();
 
     for (const task of tasks) {
+        if(task.is_it_complete === false) {
         $('#toDoList').append(`
         <tr data-id=${task.id}>
             <td>${task.task}</td>
@@ -33,6 +34,15 @@ function renderTasks( tasks ) {
             <td><button type="button" class="deleteBtn btn btn-danger">Delete</button></td>
         </tr>
         `)
+        } else if (task.is_it_complete === true) {
+            $('#toDoList').append(`
+        <tr data-id=${task.id}>
+            <td>${task.task}</td>
+            <td>Completed!</td>
+            <td><button type="button" class="deleteBtn btn btn-danger">Delete</button></td>
+        </tr>
+        `)
+        }
     }
 }
 
@@ -77,9 +87,9 @@ function markComplete() {
 
     $.ajax({
         url: `/tasks/${id}`,
-        method: 'PUT',
+        method: 'PUT'
     }).then(function(response) {
-        console.log('Updated!', response);
+        console.log('Updated!');
         refreshList();
     }).catch(function(error) {
         console.log('error in put', error);
