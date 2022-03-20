@@ -30,7 +30,7 @@ function renderTasks( tasks ) {
         $('#toDoList').append(`
         <tr data-id=${task.id}>
             <td>${task.task}</td>
-            <td><button type="button" class="completeBtn btn btn-success">Success!</button></td>
+            <td><button type="button" class="completeBtn btn btn-success">Mark Complete</button></td>
             <td><button type="button" class="deleteBtn btn btn-danger">Delete</button></td>
         </tr>
         `)
@@ -38,7 +38,7 @@ function renderTasks( tasks ) {
             $('#toDoList').append(`
         <tr data-id=${task.id}>
             <td>${task.task}</td>
-            <td>Completed!</td>
+            <td class="rainbow-text">Completed!</td>
             <td><button type="button" class="deleteBtn btn btn-danger">Delete</button></td>
         </tr>
         `)
@@ -65,21 +65,39 @@ function addTask() {
 }
 
 function deleteTask() {
-    let id = $(this).closest('tr').data('id')
-    console.log(id);
+            let id = $(this).closest('tr').data('id')
+            console.log(id);
+            
+        
+            $.ajax({
+                url: `/tasks/${id}`,
+                method: 'DELETE'
+            }).then(function(response) {
+                console.log(response);
+                refreshList();
+            }).catch(function(error) {
+                console.log('error in delete', error);
+                alert('error in delete', error)
+            })
+}
+
+// function deleteTask() {
+//     let id = $(this).closest('tr').data('id')
+//     console.log(id);
     
 
-    $.ajax({
-        url: `/tasks/${id}`,
-        method: 'DELETE'
-    }).then(function(response) {
-        console.log(response);
-        refreshList();
-    }).catch(function(error) {
-        console.log('error in delete', error);
-        alert('error in delete', error)
-    })
-}
+//     $.ajax({
+//         url: `/tasks/${id}`,
+//         method: 'DELETE'
+//     }).then(function(response) {
+//         console.log(response);
+//         refreshList();
+//     }).catch(function(error) {
+//         console.log('error in delete', error);
+//         alert('error in delete', error)
+//     })
+// }
+
 
 function markComplete() {
     let id = $(this).closest('tr').data('id');

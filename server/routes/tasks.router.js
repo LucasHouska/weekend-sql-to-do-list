@@ -6,7 +6,8 @@ const pool = require('../modules/pool.js');
 router.get('/', (req, res) => {
     console.log('in GET');
     let queryText = `
-    SELECT * FROM "tasks";
+    SELECT * FROM "tasks"
+    ORDER BY time_created;
     `;
 
     pool.query(queryText)
