@@ -35,10 +35,16 @@ function renderTasks( tasks ) {
         </tr>
         `)
         } else if (task.is_it_complete === true) {
+            let date = task.time_completed;
+            date = date.toString().substring(0, 10);
+
             $('#toDoList').append(`
         <tr data-id=${task.id}>
             <td>${task.task}</td>
-            <td class="rainbow-text">Completed!</td>
+            <td>
+            <p class="complete rainbow-text">Completed!</p>
+            <span class="complete dateCompleted">Completed on: ${date}</span>
+            </td>
             <td><button type="button" class="deleteBtn btn btn-danger">Delete</button></td>
         </tr>
         `)
