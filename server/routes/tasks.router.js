@@ -65,7 +65,8 @@ router.put('/:id', (req, res) => {
 
     let queryText = `
     UPDATE "tasks"
-    SET "is_it_complete" = true
+    SET "is_it_complete" = true,
+    "time_completed" = CURRENT_DATE
     WHERE "id" = $1
     `
 
