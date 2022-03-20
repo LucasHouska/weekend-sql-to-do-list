@@ -3,7 +3,7 @@ $(readyNow);
 function readyNow() {
     console.log('hello');
     $('#addTask').on('click', addTask)
-    $('.table').on('click', '.deleteBtn', deleteTask)
+    $('.table').on('click', '.deleteBtn', doubleCheckDelete)
     $('.table').on('click', '.completeBtn', markComplete)
 
     refreshList();
@@ -70,9 +70,29 @@ function addTask() {
     })
 }
 
-function deleteTask() {
-            let id = $(this).closest('tr').data('id')
+function doubleCheckDelete() {
+    let id = $(this).closest('tr').data('id')
             console.log(id);
+    swal({
+        title: "Delete this task?",
+        icon: "warning",
+        buttons: ['No...', 'Yeah!'],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Well aren't you the busy bee", {
+            icon: "success",
+          });
+          deleteTask();
+        } else {
+        
+        }
+      });
+    function deleteTask() {
+    
+            // let id = $(this).closest('tr').data('id')
+            // console.log(id);
             
         
             $.ajax({
@@ -85,6 +105,7 @@ function deleteTask() {
                 console.log('error in delete', error);
                 alert('error in delete', error)
             })
+    }
 }
 
 // function deleteTask() {

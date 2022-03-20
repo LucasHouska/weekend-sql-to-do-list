@@ -51,7 +51,7 @@ router.delete('/:id', (req, res) => {
     let values = [id]
 
     pool.query(queryText, values)
-    .then(reponse => {
+    .then(response => {
         res.sendStatus(200)
     }).catch(error => {
         res.sendStatus(500)
